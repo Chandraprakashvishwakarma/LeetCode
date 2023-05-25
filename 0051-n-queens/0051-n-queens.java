@@ -25,25 +25,27 @@ class Solution {
         }
     }
     
+    //Checks if Q can be placed
     public boolean isSafe(char [][] chess,int row,int col){
-        for(int i=0;i<row;i++){
-            if(chess[i][col] == 'Q') return false;
-        }
+        //Chech in row 
         for(int i=0;i<col;i++){
             if(chess[row][i] == 'Q') return false;
         }
         int r = row-1,c = col-1;
+        //Check up 45*
         while(r>=0 && c>=0){
             if(chess[r--][c--] == 'Q') return false;
         }
         r = row+1;
         c = col-1;
+        //Check down 45*
         while(r<chess.length && c>=0){
             if(chess[r++][c--] == 'Q') return false;
         }
         return true;
     }
     
+    //Builds the board if all Queens are places
     public void build(char [][] chess){
         List<String> temp = new ArrayList<>();
         for(char [] c : chess){
