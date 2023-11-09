@@ -1,27 +1,20 @@
 public class Solution {
-    public int minDistance(String word1, String word2) {
-        int m = word1.length();
-        int n = word2.length();
+    public int minDistance(String s1, String s2) {
+        int n = s1.length(),m=s2.length();
+        int [][] dp = new int[n][m];
+        for(int [] row :dp) Arrays.fill(row,-1);
+        return editDist(s1,s2,n-1,m-1,dp);
+    }
+    public int editDist(String s1,String s2,int i,int j,int [][] dp){
         
-        int[][] cost = new int[m + 1][n + 1];
-        for(int i = 0; i <= m; i++)
-            cost[i][0] = i;
-        for(int i = 1; i <= n; i++)
-            cost[0][i] = i;
+        if(i<0) return j+1;
+        else if(j<0) return i+1;
         
-        for(int i = 0; i < m; i++) {
-            for(int j = 0; j < n; j++) {
-                if(word1.charAt(i) == word2.charAt(j))
-                    cost[i + 1][j + 1] = cost[i][j];
-                else {
-                    int a = cost[i][j];
-                    int b = cost[i][j + 1];
-                    int c = cost[i + 1][j];
-                    cost[i + 1][j + 1] = a < b ? (a < c ? a : c) : (b < c ? b : c);
-                    cost[i + 1][j + 1]++;
-                }
-            }
+        if(dp[i][j]!=-1) return dp[i][j];
+        
+        if(s1.charAt(i)==s2.charAt(j)) return dp[i][j] = 0 + editDist(s1,s2,i-1,j-1,dp);
+        else {
+            return dp[i][j] = 1 + Math.min(editDist(s1,s2,i-1,j-1,dp),Math.min(editDist(s1,s2,i,j-1,dp),editDist(s1,s2,i-1,j,dp)));
         }
-        return cost[m][n];
     }
 }
