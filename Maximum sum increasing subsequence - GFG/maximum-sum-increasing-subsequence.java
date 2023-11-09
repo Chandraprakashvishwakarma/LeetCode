@@ -30,18 +30,31 @@ class Solution
 	public int maxSumIS(int arr[], int n)  
 	{  
 	    int [][] dp = new int[n+1][n+1];
-	    for(int [] row:dp) Arrays.fill(row,-1);
-	    return helper(arr,0,-1,n,dp);
+	   // for(int [] row:dp) Arrays.fill(row,-1);
+	   // return helper(arr,0,-1,n,dp);
+	   
+	   //Tabular 
+	    for(int i=n-1;i>=0;i--){
+	        for(int pre_ind = i-1;pre_ind>=-1;pre_ind--){
+	            int sum = dp[i+1][pre_ind+1];
+        	    if(pre_ind == -1 || arr[i]>arr[pre_ind]){
+        	        sum = Math.max(sum,arr[i]+dp[i+1][i+1]);
+        	    }
+        	    dp[i][pre_ind+1] = sum;
+	        }
+	    }
+	    return dp[0][-1+1];
 	}
 	
-	public int helper(int [] arr, int i,int pre_ind,int n, int [][] dp){
-	    if(i == n) return 0;
+	// Memoization
+// 	public int helper(int [] arr, int i,int pre_ind,int n, int [][] dp){
+// 	    if(i == n) return 0;
 	    
-	    if(dp[i][pre_ind+1]!=-1) return dp[i][pre_ind+1];
-	    int sum = helper(arr,i+1,pre_ind,n,dp);
-	    if(pre_ind == -1 || arr[i]>arr[pre_ind]){
-	        sum = Math.max(sum,arr[i]+helper(arr,i+1,i,n,dp));
-	    }
-	    return dp[i][pre_ind+1] = sum;
-	}
+// 	    if(dp[i][pre_ind+1]!=-1) return dp[i][pre_ind+1];
+// 	    int sum = helper(arr,i+1,pre_ind,n,dp);
+// 	    if(pre_ind == -1 || arr[i]>arr[pre_ind]){
+// 	        sum = Math.max(sum,arr[i]+helper(arr,i+1,i,n,dp));
+// 	    }
+// 	    return dp[i][pre_ind+1] = sum;
+// 	}
 }
