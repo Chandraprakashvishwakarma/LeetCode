@@ -1,19 +1,23 @@
 public class Solution {
     public int minDistance(String s1, String s2) {
         int n = s1.length(),m=s2.length();
-        int [][] dp = new int[n+1][m+1];
+        // int [][] dp = new int[n+1][m+1];
         // for(int [] row :dp) Arrays.fill(row,-1);
         
-        for(int i=0;i<=n;i++) dp[i][0] = i;
-        for(int j=0;j<=m;j++) dp[0][j] = j;
+        int [] pre = new int [m+1];
+        int [] cur = new int [m+1];
+        
+        for(int j=0;j<=m;j++) pre[j] = j;
         
         for(int i=1;i<=n;i++){
+            cur[0]=i;
             for(int j=1;j<=m;j++){
-                if(s1.charAt(i-1)==s2.charAt(j-1)) dp[i][j] = dp[i-1][j-1];
-                else dp[i][j] = 1 + Math.min(dp[i-1][j-1],Math.min(dp[i][j-1],dp[i-1][j]));
+                if(s1.charAt(i-1)==s2.charAt(j-1)) cur[j] = pre[j-1];
+                else cur[j] = 1 + Math.min(pre[j-1],Math.min(cur[j-1],pre[j]));
             }
+            pre = cur.clone();
         }  
-        return dp[n][m];
+        return pre[m];
         // return editDist(s1,s2,n,m,dp);
     }
 //     public int editDist(String s1,String s2,int i,int j,int [][] dp){
