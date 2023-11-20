@@ -4,31 +4,31 @@ Q. no. 34: Palindrome Linked List
 
 class Solution {
     public boolean isPalindrome(ListNode head) {
-        ListNode slow =head,fast = head;
-        while(fast!=null && fast.next!=null){
-			slow = slow.next;
-			fast = fast.next.next;
-		}
-        ListNode temp = revrse(slow);
-        while(temp!=null){
-            if(temp.val!=head.val) return false;
-            temp = temp.next;
-            head = head.next;
+        
+        ListNode s = head,f=head;
+        while(f.next!=null && f.next.next!=null) {
+            s = s.next;
+            f = f.next.next;
+        }
+        s.next = reverse(s.next);
+        s = s.next;
+        f = head;
+        while(s!=null){
+            if(f.val!=s.val) return false;
+            f= f.next;
+            s=s.next;
         }
         return true;
     }
-    
-    public ListNode revrse(ListNode head){
-        if(head==null || head.next == null) return head;
-        ListNode cur = head;
-        ListNode pre =null ;
-        while(cur !=null ){
-            ListNode temp = cur.next; 
+    public ListNode reverse(ListNode cur){
+        ListNode pre = null;
+        while(cur!=null){
+            ListNode temp = cur.next;
             cur.next = pre;
-            pre=cur;
+            pre = cur;
             cur = temp;
         }
-        return pre;   
+        return pre;
     }
 }
 
