@@ -4,12 +4,14 @@ class Solution {
         boolean vis[][] = new boolean[n][m];
         int max = 0;
         Queue<Trio> q = new LinkedList<>();
+        int count=0;
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
                 if(grid[i][j] == 2) {
                     q.add(new Trio(i,j,0));
                     vis[i][j] =true;
                 }
+                if(grid[i][j] == 1) count++;
             }
         }
         
@@ -25,17 +27,18 @@ class Solution {
                 int nrow = i+delrow[k],ncol = j+delcol[k];
                 if(nrow<n && nrow>=0 && ncol>=0 && ncol<m 
                    && !vis[nrow][ncol] && grid[nrow][ncol] == 1){
-                    // System.out.println(nrow+" "+ncol+"  "+t);
                     q.add(new Trio(nrow,ncol,t+1));
                     vis[nrow][ncol] = true;
+                    count--;
                 }
             }
         }
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(grid[i][j] == 1 && !vis[i][j]) return -1;
-            }
-        }
+        // for(int i=0;i<n;i++){
+        //     for(int j=0;j<m;j++){
+        //         if(grid[i][j] == 1 && !vis[i][j]) return -1;
+        //     }
+        // }
+        if(count != 0) return -1;
         return max;
     }
 }
