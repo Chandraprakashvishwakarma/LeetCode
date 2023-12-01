@@ -6,6 +6,6 @@ class Solution {
             if(i<word1.length) a.append(word1[i]);
             if(i<word2.length) b.append(word2[i]);
         }
-        return a.compareTo(b)==0?true:false;
+        return a.toString().equals(b.toString());
     }
 }
