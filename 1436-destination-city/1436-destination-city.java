@@ -1,13 +1,8 @@
 class Solution {
     public String destCity(List<List<String>> paths) {
-        HashMap<String,String> map = new HashMap<>();
-        for(List<String> temp:paths){
-            map.put(temp.get(0),temp.get(1));
-        }
-        String s = paths.get(0).get(0);
-        while(map.get(s)!=null){
-            s = map.get(s);
-        }
-        return s;
+        Set<String> set = new HashSet<>();
+        for(List<String> path:paths) set.add(path.get(0));
+        for(List<String> path:paths) if(!set.contains(path.get(1))) return path.get(1);
+        return "";
     }
 }
