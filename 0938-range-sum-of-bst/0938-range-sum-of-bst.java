@@ -15,14 +15,18 @@
  */
 class Solution {
     public int rangeSumBST(TreeNode root, int low, int high) {
-        int [] sum = new int[1];
-        preOrder(root,low,high,sum);
-        return sum[0];
-    }
-    public void preOrder(TreeNode root,int low,int high,int [] sum){
-        if(root == null) return;
-        if(root.val<=high && root.val>=low) sum[0]+=root.val;
-        preOrder(root.left,low,high,sum);
-        preOrder(root.right,low,high,sum);
+        if (root == null) {
+            return 0;
+        }
+      
+        if (low <= root.val && root.val <= high) {
+            return root.val + rangeSumBST(root.left, low, high) + rangeSumBST(root.right, low, high);
+        } 
+        else if (root.val < low) {
+            return rangeSumBST(root.right, low, high);
+        } 
+        else {
+            return rangeSumBST(root.left, low, high);
+        }
     }
 }
