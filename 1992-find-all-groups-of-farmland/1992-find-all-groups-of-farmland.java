@@ -19,8 +19,8 @@ class Solution {
     
     public void bfs(int i,int j,int[][] land,boolean [][] vis,List<int[]> res){
         Queue<Pair> q = new LinkedList<>();
-        int [] row = new int[]{1,0,-1,0};
-        int [] col = new int[]{0,1,0,-1};
+        int [] row = new int[]{1,0};
+        int [] col = new int[]{0,1};
         int tlr=Integer.MAX_VALUE,tlc=Integer.MAX_VALUE,brr=0,brc=0;
         q.offer(new Pair(i,j));
         vis[i][j] = true;
@@ -32,7 +32,7 @@ class Solution {
             brr = Math.max(brr,r);
             brc = Math.max(brc,c);
             q.poll();
-            for(int k=0;k<4;k++){
+            for(int k=0;k<2;k++){
                 int nr = r+row[k];
                 int nc = c+col[k];
                 if(nr>=0 && nr<land.length && nc>=0 && nc<land[0].length && land[nr][nc]==1 && !vis[nr][nc]){
