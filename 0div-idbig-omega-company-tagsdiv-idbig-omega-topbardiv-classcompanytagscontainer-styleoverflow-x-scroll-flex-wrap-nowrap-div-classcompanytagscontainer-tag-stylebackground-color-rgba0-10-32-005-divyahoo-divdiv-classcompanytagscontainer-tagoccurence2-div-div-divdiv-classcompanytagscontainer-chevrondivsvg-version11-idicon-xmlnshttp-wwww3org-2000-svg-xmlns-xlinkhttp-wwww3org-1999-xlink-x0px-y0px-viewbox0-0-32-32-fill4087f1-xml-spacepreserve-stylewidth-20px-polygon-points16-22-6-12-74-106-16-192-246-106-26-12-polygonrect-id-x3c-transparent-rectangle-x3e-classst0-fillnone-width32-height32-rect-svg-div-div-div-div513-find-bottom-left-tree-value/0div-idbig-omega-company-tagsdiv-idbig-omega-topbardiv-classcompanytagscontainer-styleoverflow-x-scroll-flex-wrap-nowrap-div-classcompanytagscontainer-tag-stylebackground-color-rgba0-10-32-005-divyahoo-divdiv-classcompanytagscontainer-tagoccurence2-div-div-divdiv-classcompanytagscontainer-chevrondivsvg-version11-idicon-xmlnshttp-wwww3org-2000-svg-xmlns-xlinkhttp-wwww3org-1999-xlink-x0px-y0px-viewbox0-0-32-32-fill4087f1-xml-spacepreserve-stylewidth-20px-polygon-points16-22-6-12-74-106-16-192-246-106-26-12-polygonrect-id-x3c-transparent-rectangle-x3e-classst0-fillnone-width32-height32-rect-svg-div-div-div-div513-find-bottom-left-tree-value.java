@@ -17,18 +17,14 @@ class Solution {
     public int findBottomLeftValue(TreeNode root) {
         Queue<TreeNode> q = new LinkedList<>();
         q.offer(root);
-        int res = root.val;
+        int res = 0;
         while(!q.isEmpty()){
             int s = q.size();
-            boolean flag = true;
             for(int i=0;i<s;i++){
                 TreeNode node = q.poll();
-                if(flag){
-                    res = node.val;
-                    flag = false;
-                }
-                if(node.left!=null) q.offer(node.left);
+                res = node.val;
                 if(node.right!=null) q.offer(node.right);
+                if(node.left!=null) q.offer(node.left);
             }
         }
         return res;
