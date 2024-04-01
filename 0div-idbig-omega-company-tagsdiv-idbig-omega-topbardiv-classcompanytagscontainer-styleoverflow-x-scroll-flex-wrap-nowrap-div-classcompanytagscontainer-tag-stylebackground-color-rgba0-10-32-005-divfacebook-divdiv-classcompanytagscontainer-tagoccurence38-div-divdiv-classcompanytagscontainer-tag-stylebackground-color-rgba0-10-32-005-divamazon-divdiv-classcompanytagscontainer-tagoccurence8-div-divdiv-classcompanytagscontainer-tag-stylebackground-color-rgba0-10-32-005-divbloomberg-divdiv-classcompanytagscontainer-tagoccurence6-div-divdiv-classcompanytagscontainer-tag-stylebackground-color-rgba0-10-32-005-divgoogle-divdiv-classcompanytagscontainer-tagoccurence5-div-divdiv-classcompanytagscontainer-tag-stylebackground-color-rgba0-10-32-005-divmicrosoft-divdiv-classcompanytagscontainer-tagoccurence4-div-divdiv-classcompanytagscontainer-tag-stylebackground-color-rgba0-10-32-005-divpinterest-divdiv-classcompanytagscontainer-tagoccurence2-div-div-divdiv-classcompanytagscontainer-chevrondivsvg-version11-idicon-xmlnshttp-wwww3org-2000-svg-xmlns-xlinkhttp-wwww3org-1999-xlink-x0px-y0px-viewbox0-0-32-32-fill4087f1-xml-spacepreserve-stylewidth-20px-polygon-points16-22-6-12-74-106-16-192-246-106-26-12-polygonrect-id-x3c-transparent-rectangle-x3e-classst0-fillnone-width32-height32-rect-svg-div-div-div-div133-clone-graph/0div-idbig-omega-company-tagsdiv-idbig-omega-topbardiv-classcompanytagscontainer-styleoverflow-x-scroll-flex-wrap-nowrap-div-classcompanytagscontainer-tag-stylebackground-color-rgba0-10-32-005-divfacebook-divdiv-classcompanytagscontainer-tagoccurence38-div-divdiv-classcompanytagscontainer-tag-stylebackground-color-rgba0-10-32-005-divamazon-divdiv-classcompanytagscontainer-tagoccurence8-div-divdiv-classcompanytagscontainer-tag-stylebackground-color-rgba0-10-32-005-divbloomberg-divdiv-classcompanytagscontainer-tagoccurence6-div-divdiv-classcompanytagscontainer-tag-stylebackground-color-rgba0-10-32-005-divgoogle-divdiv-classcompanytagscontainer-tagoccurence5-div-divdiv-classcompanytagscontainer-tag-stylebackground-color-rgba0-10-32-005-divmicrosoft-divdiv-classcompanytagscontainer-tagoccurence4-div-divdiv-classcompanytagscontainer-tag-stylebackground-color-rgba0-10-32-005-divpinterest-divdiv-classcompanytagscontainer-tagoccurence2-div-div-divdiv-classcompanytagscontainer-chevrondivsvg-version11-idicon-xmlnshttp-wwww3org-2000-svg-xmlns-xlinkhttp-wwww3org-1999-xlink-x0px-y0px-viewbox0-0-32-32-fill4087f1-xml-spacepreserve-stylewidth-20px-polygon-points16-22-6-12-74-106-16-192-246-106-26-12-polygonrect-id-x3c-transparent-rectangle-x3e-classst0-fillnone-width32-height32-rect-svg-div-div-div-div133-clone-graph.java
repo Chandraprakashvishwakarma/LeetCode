@@ -20,16 +20,16 @@ class Node {
 
 class Solution {
     public Node cloneGraph(Node node) {
-        HashMap<Node,Node> map = new HashMap<>();
+        HashMap<Integer,Node> map = new HashMap<>();
         return clone(node,map);
     }
     
-    public Node clone(Node node,HashMap<Node,Node> map){
+    public Node clone(Node node,HashMap<Integer,Node> map){
         if(node == null) return null;
-        if(map.containsKey(node)) return map.get(node);
+        if(map.containsKey(node.val)) return map.get(node.val);
         
         Node dub = new Node(node.val);
-        map.put(node,dub);
+        map.put(node.val,dub);
         for(Node neighbor:node.neighbors){
             dub.neighbors.add(clone(neighbor,map));
         }
