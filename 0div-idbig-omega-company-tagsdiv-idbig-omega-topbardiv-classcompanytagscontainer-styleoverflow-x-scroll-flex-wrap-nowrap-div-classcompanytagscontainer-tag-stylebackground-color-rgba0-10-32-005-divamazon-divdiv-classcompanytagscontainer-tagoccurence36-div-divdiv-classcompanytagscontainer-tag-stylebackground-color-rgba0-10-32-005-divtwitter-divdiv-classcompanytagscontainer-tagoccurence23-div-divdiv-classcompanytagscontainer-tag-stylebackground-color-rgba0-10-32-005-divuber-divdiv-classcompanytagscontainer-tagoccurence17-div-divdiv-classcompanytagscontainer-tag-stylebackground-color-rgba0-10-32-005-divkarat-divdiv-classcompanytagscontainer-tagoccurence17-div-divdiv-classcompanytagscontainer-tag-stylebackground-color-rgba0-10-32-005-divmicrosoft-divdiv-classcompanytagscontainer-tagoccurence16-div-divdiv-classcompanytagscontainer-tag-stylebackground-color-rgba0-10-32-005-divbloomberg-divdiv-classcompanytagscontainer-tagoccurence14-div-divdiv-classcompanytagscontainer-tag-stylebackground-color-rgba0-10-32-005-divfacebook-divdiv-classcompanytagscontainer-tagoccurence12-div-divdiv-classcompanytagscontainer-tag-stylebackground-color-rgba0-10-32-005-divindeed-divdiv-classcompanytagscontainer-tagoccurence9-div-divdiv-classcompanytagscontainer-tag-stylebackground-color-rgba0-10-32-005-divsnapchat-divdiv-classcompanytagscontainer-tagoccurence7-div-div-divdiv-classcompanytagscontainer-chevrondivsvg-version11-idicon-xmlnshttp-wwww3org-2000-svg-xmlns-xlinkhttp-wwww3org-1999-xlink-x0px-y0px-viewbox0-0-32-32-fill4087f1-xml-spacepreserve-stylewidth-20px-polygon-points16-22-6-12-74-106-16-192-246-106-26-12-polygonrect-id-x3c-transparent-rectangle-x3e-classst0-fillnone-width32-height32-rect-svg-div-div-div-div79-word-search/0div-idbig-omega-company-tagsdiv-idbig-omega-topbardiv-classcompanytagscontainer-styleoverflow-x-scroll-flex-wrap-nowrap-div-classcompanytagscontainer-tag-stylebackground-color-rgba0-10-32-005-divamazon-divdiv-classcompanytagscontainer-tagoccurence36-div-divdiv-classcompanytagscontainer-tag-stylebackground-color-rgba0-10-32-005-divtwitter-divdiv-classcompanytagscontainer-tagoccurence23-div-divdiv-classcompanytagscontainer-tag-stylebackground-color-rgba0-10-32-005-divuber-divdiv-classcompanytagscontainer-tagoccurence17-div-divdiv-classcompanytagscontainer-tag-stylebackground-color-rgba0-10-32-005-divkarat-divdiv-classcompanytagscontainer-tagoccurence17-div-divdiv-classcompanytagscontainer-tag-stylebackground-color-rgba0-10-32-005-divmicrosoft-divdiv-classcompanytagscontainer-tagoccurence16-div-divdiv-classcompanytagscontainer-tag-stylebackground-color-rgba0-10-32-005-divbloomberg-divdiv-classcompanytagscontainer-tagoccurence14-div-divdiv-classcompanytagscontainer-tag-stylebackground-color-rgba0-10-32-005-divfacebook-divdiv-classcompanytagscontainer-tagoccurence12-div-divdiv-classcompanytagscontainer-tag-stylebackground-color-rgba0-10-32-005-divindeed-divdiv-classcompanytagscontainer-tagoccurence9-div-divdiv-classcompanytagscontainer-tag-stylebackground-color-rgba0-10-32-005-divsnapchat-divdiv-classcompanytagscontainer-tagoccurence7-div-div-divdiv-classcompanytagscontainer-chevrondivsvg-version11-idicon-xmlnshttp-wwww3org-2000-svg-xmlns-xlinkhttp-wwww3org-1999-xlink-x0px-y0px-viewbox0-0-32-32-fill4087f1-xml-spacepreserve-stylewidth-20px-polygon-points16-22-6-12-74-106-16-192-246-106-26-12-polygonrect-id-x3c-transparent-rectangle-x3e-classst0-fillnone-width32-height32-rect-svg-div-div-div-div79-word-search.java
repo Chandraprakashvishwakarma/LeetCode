@@ -15,9 +15,12 @@ class Solution {
         if(i<0 || i==board.length || j<0 || j==board[0].length || vis[i][j]) return false;
         if(board[i][j] != word.charAt(idx)) return false;
         vis[i][j] = true;
-        boolean flag = false;
-        if(dfs(board,word,i+1,j,vis,idx+1) || dfs(board,word,i-1,j,vis,idx+1) || dfs(board,word,i,j+1,vis,idx+1) || dfs(board,word,i,j-1,vis,idx+1)) return true;
+        boolean flag = dfs(board,word,i+1,j,vis,idx+1) || 
+            dfs(board,word,i-1,j,vis,idx+1) || 
+            dfs(board,word,i,j+1,vis,idx+1) || 
+            dfs(board,word,i,j-1,vis,idx+1);
+        
         vis[i][j] = false;
-        return false;
+        return flag;
     }
 }
