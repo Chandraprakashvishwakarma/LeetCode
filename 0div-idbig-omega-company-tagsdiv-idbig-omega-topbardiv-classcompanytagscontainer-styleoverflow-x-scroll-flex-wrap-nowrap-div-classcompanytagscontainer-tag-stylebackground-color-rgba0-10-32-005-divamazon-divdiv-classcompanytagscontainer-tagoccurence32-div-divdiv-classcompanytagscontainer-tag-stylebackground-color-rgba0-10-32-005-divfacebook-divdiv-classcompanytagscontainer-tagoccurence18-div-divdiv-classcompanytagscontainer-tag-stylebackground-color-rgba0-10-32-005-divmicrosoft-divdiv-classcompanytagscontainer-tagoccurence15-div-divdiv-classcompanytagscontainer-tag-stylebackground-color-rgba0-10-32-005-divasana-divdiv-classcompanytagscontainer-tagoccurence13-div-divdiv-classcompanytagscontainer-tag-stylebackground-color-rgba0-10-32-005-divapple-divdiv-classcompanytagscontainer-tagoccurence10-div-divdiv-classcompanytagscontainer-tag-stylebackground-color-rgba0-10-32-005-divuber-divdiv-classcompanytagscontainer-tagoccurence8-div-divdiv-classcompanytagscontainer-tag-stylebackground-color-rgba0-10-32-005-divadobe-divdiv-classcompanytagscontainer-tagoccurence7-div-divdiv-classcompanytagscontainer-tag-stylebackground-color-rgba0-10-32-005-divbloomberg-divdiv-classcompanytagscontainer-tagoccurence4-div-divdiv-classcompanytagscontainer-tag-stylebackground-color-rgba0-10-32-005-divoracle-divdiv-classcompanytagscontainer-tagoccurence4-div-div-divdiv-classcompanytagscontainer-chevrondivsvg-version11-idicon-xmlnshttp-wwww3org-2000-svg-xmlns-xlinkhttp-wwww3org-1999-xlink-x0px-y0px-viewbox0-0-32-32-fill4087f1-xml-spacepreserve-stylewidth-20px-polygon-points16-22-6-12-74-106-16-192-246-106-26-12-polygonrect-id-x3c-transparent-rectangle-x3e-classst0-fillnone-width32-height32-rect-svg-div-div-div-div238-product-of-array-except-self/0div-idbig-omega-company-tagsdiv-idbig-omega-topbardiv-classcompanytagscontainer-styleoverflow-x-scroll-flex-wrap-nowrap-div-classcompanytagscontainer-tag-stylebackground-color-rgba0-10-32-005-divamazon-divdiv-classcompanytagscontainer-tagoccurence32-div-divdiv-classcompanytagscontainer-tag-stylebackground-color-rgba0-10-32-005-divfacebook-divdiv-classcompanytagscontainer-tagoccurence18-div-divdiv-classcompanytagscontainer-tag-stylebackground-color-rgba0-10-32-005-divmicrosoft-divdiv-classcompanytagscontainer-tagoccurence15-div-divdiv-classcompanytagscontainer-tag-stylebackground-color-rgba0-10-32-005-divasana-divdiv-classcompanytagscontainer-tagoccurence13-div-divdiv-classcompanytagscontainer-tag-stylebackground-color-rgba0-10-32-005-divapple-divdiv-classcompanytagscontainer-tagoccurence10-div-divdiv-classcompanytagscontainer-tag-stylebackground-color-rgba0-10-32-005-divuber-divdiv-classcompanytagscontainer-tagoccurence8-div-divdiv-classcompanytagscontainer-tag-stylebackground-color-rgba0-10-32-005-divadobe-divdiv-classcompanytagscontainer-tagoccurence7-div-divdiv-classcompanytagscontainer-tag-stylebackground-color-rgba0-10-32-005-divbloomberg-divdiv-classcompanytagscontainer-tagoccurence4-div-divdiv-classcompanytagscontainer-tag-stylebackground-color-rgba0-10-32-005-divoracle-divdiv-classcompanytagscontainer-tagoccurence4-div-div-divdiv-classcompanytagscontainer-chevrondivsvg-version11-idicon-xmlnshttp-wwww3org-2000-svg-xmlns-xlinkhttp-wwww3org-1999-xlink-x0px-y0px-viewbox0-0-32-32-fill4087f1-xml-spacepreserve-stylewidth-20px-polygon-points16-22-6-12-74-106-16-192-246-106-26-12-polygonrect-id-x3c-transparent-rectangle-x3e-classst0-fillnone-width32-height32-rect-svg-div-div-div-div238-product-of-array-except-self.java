@@ -8,13 +8,12 @@ class Solution {
             if(z>1) return new int [n];
              suffixProd[i] = suffixProd[i+1]*nums[i];
         }
-        int [] res = new int[n];
         int prod = 1;
         for(int i=0;i<n-1;i++){
-            res[i] = suffixProd[i+1] * prod;
+            suffixProd[i] = suffixProd[i+1] * prod;
             prod = prod * nums[i];
         }
-        res[n-1] = prod;
-        return res;
+        suffixProd[n-1] = prod;
+        return suffixProd;
     }
 }
