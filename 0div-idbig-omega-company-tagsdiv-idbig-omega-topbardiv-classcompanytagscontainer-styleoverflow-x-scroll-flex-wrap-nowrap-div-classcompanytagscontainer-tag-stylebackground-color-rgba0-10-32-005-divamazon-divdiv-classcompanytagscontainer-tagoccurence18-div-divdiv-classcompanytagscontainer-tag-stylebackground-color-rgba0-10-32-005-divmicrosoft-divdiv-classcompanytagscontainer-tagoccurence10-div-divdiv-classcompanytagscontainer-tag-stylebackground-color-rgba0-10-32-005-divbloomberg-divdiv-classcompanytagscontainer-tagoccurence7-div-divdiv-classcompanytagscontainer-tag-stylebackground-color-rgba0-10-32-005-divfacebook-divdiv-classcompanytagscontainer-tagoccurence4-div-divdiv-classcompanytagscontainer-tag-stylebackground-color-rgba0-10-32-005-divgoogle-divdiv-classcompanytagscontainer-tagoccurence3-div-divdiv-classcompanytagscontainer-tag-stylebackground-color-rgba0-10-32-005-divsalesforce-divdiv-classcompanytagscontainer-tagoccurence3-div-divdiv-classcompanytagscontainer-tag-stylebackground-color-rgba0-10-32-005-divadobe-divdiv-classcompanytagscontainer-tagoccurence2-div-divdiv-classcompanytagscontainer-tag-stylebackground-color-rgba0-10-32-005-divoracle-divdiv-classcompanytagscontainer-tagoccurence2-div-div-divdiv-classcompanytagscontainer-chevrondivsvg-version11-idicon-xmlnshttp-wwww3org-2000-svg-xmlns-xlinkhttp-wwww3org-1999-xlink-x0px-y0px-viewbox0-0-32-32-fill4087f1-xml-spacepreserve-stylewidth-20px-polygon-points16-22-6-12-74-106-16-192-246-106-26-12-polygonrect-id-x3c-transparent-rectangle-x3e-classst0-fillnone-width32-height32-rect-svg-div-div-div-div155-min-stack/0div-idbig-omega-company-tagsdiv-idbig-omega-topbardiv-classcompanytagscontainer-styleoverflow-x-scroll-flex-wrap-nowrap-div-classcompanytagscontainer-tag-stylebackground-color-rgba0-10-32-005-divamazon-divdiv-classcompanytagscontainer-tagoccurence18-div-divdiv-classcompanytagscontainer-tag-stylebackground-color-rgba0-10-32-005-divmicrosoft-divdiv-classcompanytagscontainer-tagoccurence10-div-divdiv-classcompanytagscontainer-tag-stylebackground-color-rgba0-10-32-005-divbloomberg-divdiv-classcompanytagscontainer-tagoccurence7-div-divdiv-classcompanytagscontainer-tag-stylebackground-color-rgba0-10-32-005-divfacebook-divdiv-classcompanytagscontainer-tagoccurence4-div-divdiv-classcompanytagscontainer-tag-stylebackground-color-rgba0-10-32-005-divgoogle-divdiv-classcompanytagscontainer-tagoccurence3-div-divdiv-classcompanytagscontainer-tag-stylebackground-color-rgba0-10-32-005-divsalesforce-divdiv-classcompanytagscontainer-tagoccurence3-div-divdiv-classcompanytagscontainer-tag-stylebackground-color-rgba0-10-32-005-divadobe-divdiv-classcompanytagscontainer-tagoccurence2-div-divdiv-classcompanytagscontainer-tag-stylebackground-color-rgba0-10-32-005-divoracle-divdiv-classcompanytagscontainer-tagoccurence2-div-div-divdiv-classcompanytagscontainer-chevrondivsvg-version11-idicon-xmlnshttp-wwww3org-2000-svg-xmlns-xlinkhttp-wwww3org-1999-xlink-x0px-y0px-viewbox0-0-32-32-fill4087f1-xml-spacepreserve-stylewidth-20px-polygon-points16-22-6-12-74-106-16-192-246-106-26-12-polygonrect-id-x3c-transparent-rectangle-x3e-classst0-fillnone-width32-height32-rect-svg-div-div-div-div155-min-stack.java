@@ -1,22 +1,23 @@
 class MinStack {
     Stack<Integer> st;
-    List<Integer> list;
+    int min;
     public MinStack() {
         st = new Stack<Integer>();
-        list = new ArrayList<Integer>();
+        min = Integer.MAX_VALUE;
     }
     
     public void push(int val) {
+        //keep min value just below last val
+        if(val <= min){
+            st.push(min);
+            min = val;
+        }
         st.push(val);
-        if(list.size()==0 || val>list.get(0)) list.add(val);
-        else list.add(0,val);
     }
     
     public void pop() {
-        int val = st.peek();
-        if(val == list.get(0)) list.remove(0);
-        else list.remove(list.size()-1);
-        st.pop();
+        //if top value is equal to min val the update min with pre val of stack
+        if(st.pop()==min) min=st.pop();
     }
     
     public int top() {
@@ -24,7 +25,7 @@ class MinStack {
     }
     
     public int getMin() {
-        return list.get(0);
+        return min;
     }
 }
 
