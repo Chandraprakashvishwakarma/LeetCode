@@ -1,23 +1,26 @@
 class Solution {
     public int coinChange(int[] ar, int target) {
         int n = ar.length;
-        int [][] dp = new int[n][target+1];
+        // int [][] dp = new int[n][target+1];
+        int [] pre = new int[target+1];
+        int [] cur = new int[target+1];
         
         for(int t = 0; t<=target ; t++){
-            if(t%ar[0]==0) dp[0][t] = t/ar[0];
-            else dp[0][t] = Integer.MAX_VALUE-10000;
+            if(t%ar[0]==0) pre[t] = t/ar[0];
+            else pre[t] = Integer.MAX_VALUE-10000;
         }
         
         for(int i = 1;i<n ; i++){
             for(int t=0; t<=target;t++){
-                int not_take = dp[i-1][t];
+                int not_take = pre[t];
                 int take = Integer.MAX_VALUE;
-                if(ar[i]<=t) take = 1+dp[i][t-ar[i]];
+                if(ar[i]<=t) take = 1+cur[t-ar[i]];
         
-                dp[i][t] = Math.min(take,not_take);
+                cur[t] = Math.min(take,not_take);
             }
+            pre = cur.clone();
         }
-        return dp[n-1][target] >= Integer.MAX_VALUE-10000?-1:dp[n-1][target];
+        return pre[target] >= Integer.MAX_VALUE-10000?-1:pre[target];
     }
 }
 //         int n = ar.length;
