@@ -11,9 +11,12 @@ class Solution {
     }
     
     public boolean dfs(char [][] board,String word,int i,int j,boolean [][] vis,int idx){
+        
         if(idx==word.length()) return true;
-        if(i<0 || i==board.length || j<0 || j==board[0].length || vis[i][j]) return false;
-        if(board[i][j] != word.charAt(idx)) return false;
+        
+        if(i<0 || i==board.length || j<0 || j==board[0].length || 
+           vis[i][j] || board[i][j] != word.charAt(idx)) return false;
+        
         vis[i][j] = true;
         boolean flag = dfs(board,word,i+1,j,vis,idx+1) || 
             dfs(board,word,i-1,j,vis,idx+1) || 
