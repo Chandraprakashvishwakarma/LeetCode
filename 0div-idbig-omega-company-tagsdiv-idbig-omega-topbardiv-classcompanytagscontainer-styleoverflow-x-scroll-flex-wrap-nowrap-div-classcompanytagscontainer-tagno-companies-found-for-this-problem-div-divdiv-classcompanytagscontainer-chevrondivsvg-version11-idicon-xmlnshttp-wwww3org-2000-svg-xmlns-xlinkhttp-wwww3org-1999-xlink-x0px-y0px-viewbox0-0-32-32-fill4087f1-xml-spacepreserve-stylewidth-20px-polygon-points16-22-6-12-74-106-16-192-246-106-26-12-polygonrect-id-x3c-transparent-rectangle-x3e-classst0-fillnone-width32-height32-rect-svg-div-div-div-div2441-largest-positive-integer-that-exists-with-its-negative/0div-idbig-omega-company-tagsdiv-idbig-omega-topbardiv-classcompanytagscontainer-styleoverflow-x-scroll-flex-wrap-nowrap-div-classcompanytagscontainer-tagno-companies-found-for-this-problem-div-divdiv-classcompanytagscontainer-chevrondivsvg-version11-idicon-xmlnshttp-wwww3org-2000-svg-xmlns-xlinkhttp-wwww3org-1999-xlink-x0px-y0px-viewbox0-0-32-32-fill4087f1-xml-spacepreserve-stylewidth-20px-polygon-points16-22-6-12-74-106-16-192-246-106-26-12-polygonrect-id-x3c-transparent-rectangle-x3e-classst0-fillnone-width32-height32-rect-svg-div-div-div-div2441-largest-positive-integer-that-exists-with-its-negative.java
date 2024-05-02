@@ -9,11 +9,19 @@ class Solution {
         // }
         // return -1;
         
-        boolean a[] = new boolean [20002];
+        // boolean a[] = new boolean [20002];
+        // int max = -1;
+        // for(int i:nums){
+        //     a[1001+i] = true;
+        //     if(a[1001-i] && a[1001+i]) max = Math.max(max,Math.abs(i));
+        // }
+        // return max;
+        
+        Map<Integer,Boolean> map = new HashMap<>();
         int max = -1;
         for(int i:nums){
-            a[1001+i] = true;
-            if(a[1001-i] && a[1001+i]) max = Math.max(max,Math.abs(i));
+            map.put(i,true);
+            if(map.get(i) && map.getOrDefault(-i,false)) max = Math.max(max,Math.abs(i));
         }
         return max;
     }
