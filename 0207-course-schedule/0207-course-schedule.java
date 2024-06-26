@@ -1,19 +1,15 @@
 class Solution {
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
-        boolean [] vis = new boolean[numCourses];
-        boolean [] pathVis = new boolean[numCourses];
-        
-        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
-        for(int i=0;i<numCourses;i++) adj.add(new ArrayList<Integer>());
-        getAdj(adj,prerequisites);
-        
-        for(int i=0;i<numCourses;i++){
+    public boolean canFinish(int n, int[][] prerequisites) {
+        List<List<Integer>> adj = getAdj(n,prerequisites);
+        boolean [] vis = new boolean[n];
+        boolean [] pathVis = new boolean[n];
+        for(int i=0;i<n;i++){
             if(!vis[i] && !dfs(i,vis,pathVis,adj)) return false;
         }
         return true;
     }
     
-    public boolean dfs(int node,boolean [] vis,boolean [] pathVis,ArrayList<ArrayList<Integer>> adj){
+    public boolean dfs(int node,boolean [] vis,boolean [] pathVis,List<List<Integer>> adj){
         vis[node] = true;
         pathVis[node] = true;
         for(int i:adj.get(node)){
@@ -23,10 +19,15 @@ class Solution {
         return true;
     }
     
-    public void getAdj(ArrayList<ArrayList<Integer>> adj ,int[][] prerequisites ){
+    public List<List<Integer>> getAdj(int n,int [][] prerequisites){
+         List<List<Integer>> adj = new ArrayList<>();
+        for(int i=0;i<n;i++) adj.add(new ArrayList<Integer>());
+        
         for(int [] row:prerequisites){
-            int u = row[0],v = row[1];
-            adj.get(u).add(v);
+            int u = row[0];
+            int v = row[1];
+            adj.get(v).add(u);
         }
+        return adj;
     }
 }
