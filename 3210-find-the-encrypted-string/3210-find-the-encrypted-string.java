@@ -1,10 +1,10 @@
 class Solution {
     public String getEncryptedString(String s, int k) {
-        char [] str = s.toCharArray();
+        String res = "";
         int n = s.length();
         for(int i=0;i<s.length();i++){
-            str[i] = s.charAt((i+k)%n);
+            res += s.charAt((i+k)%n);
         }
-        return new String(str);
+        return res;
     }
 }
