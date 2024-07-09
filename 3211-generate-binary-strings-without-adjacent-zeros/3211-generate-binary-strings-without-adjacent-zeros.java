@@ -6,7 +6,7 @@ class Solution {
     }
     public void getAllSubstrings(int n,String temp,List<String> res,char pre){
         if(temp.length() == n) {
-            res.add(String.valueOf(temp));
+            res.add(temp);
             return;
         }
         
