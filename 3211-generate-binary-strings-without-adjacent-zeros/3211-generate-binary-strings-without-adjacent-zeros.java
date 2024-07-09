@@ -12,11 +12,8 @@ class Solution {
         
         if(pre == '0') getAllSubstrings(n,temp+'1',res,'1');
         else {
-            temp = temp + '0';
-            getAllSubstrings(n,temp,res,'0');
-            temp = temp.substring(0,temp.length()-1) + '1';
-            getAllSubstrings(n,temp,res,'1');
-            temp = temp.substring(0,temp.length()-1);
+            getAllSubstrings(n,temp+'0',res,'0');
+            getAllSubstrings(n,temp+'1',res,'1');
         }
     }
 }
