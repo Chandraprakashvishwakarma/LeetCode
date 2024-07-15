@@ -15,16 +15,31 @@
  */
 class Solution {
     public TreeNode createBinaryTree(int[][] descriptions) {
-        Map<Integer,Trio> map = new HashMap<>();
+        Map<Integer,TreeNode> map = new HashMap<>();
+        //set is to 
+        Set<Integer> childs = new HashSet<>();
         for(int [] des:descriptions){
-            if(!map.containsKey(des[0])) map.put(des[0],new Trio(des[0],new TreeNode(des[0]),true));
-            if(!map.containsKey(des[1])) map.put(des[1],new Trio(des[1],new TreeNode(des[1]),false));
-            else map.get(des[1]).isRoot=false;
-            if(des[2] == 1) map.get(des[0]).node.left = map.get(des[1]).node;
-            else map.get(des[0]).node.right = map.get(des[1]).node;
+            map.putIfAbsent(des[0],new TreeNode(des[0]));
+            if(!map.containsKey(des[1])) map.put(des[1],new TreeNode(des[1]));
+            childs.add(des[1]);
+            if(des[2]==1) map.get(des[0]).left = map.get(des[1]);
+            else map.get(des[0]).right = map.get(des[1]);
         }
-        for(int i:map.keySet()) if(map.get(i).isRoot) return map.get(i).node;
+        //if(parent is not there in childs means it is the root)
+        for(int i:map.keySet()) if(!childs.contains(i)) return map.get(i);
+        
         return null;
+        
+        
+        // for(int [] des:descriptions){
+        //     if(!map.containsKey(des[0])) map.put(des[0],new Trio(des[0],new TreeNode(des[0]),true));
+        //     if(!map.containsKey(des[1])) map.put(des[1],new Trio(des[1],new TreeNode(des[1]),false));
+        //     else map.get(des[1]).isRoot=false;
+        //     if(des[2] == 1) map.get(des[0]).node.left = map.get(des[1]).node;
+        //     else map.get(des[0]).node.right = map.get(des[1]).node;
+        // }
+        // for(int i:map.keySet()) if(map.get(i).isRoot) return map.get(i).node;
+        // return null;
     }
 }
 
