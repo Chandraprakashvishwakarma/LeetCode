@@ -14,34 +14,37 @@
  * }
  */
 class Solution {
-    int count=0;
+    private int count = 0;
+    private final int MAX_DISTANCE = 10;
+
     public int countPairs(TreeNode root, int distance) {
-        Distance(root,distance);
-            return count;
+        dfs(root, distance);
+        return count;
     }
-    public List<Integer> Distance(TreeNode root,int distance){
-        if(root==null)
-            return new ArrayList<Integer>();
-        if(root.left==null&&root.right==null){
-            List<Integer> sublist=new ArrayList<Integer>();
-            sublist.add(1);
-            return sublist;
+
+    private int[] dfs(TreeNode node, int distance) {
+        if (node == null) return new int[MAX_DISTANCE + 1];
+        
+        if (node.left == null && node.right == null) {
+            int[] res = new int[MAX_DISTANCE + 1];
+            res[1] = 1;
+            return res;
         }
-        List<Integer> l1=Distance(root.left,distance);
-        List<Integer> l2=Distance(root.right,distance);
-        //System.out.println("left "+l1);
-        //System.out.println("right "+l2);
-        for(int d1:l1){
-            for(int d2:l2){
-                if(d1+d2<=distance)
-                    count++;
+
+        int[] left = dfs(node.left, distance);
+        int[] right = dfs(node.right, distance);
+
+        for (int i = 1; i <= distance; i++) {
+            for (int j = 1; j <= distance - i; j++) {
+                count += left[i] * right[j];
             }
         }
-        List<Integer> list=new ArrayList<Integer>();
-        for(int val:l1)
-            list.add(val+1);
-        for(int val:l2)
-            list.add(val+1);
-        return list;
+
+        int[] res = new int[MAX_DISTANCE + 1];
+        for (int i = 1; i < MAX_DISTANCE; i++) {
+            res[i + 1] = left[i] + right[i];
+        }
+
+        return res;
     }
 }
