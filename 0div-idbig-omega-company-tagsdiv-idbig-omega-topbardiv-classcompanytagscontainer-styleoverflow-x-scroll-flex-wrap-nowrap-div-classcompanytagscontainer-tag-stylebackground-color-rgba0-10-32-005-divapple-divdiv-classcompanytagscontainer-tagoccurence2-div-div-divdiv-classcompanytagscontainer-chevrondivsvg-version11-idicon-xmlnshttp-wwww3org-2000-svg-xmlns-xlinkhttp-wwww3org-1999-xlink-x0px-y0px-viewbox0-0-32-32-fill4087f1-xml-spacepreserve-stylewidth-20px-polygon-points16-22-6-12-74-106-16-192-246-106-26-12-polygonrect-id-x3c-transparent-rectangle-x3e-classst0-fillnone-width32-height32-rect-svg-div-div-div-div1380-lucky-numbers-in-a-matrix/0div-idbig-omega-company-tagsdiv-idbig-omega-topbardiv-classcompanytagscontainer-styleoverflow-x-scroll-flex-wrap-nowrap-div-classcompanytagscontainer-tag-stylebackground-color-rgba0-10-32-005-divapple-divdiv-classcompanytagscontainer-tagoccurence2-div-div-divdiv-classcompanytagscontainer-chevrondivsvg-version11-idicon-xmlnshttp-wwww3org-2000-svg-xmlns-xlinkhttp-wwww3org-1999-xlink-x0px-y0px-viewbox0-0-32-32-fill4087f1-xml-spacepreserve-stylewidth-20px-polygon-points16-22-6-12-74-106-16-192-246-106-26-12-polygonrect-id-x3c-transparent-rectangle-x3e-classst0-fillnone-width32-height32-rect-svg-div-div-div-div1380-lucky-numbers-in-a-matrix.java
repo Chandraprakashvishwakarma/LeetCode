@@ -1,27 +1,33 @@
 class Solution {
     public List<Integer> luckyNumbers (int[][] matrix) {
-        int m = matrix.length, n = matrix[0].length;
-        int [] row = new int [m];
-        Arrays.fill(row,Integer.MAX_VALUE);
-        int [] col = new int [n];
-        Arrays.fill(col,Integer.MIN_VALUE);
-        for(int i=0;i<m;i++){
-            for(int j=0;j<n;j++){
-                row[i] = Math.min(row[i],matrix[i][j]);
-                col[j] = Math.max(col[j],matrix[i][j]);
-            }
-        }
         List<Integer> res = new ArrayList<>();
-        for(int i=0;i<m;i++){
-            for(int j=0;j<n;j++){
-                if(row[i] == matrix[i][j] && col[j] == matrix[i][j]) res.add(matrix[i][j]);
-            }
+
+        for(int i = 0; i < matrix.length; i++)
+        {
+            int col = findMin(matrix, i);
+
+            int maxCol = matrix[i][col];
+            if(maxInCol(matrix, maxCol, col))
+                res.add(maxCol);
         }
+
         return res;
     }
+    private int findMin(int[][] matrix, int row){
+		int val= matrix[row][0], col=0;
+		for(int i=1;i<matrix[row].length;i++){
+			if(matrix[row][i]<val){
+				val=matrix[row][i];
+				col=i;
+			}
+		}
+		return col;
+	}
+    private boolean maxInCol(int[][] matrix, int val, int col){
+        for(int i=0;i<matrix.length;i++){
+            if(matrix[i][col]>val)
+                return false;
+        }
+        return true;
+    }
 }
-
-//     col1 col2 col3
-// row1
-// row2
-// row3
