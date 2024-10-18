@@ -11,16 +11,9 @@ class Solution {
     }
     
     private void findAllSubsetWithMaxOr(int [] nums,int i,int ans[],int OR,int MaxOr){
-        if(i==nums.length && OR == MaxOr) {
-            
-            ans[0]++;
-            return ;
-        }
-        if (i == nums.length) return ;
+        if(OR == MaxOr) ans[0]++;
         
-        findAllSubsetWithMaxOr(nums,i+1,ans,nums[i]|OR,MaxOr);
-        findAllSubsetWithMaxOr(nums,i+1,ans,OR,MaxOr);
-        
-        return ;
+        for(int j=i;j<nums.length;j++) 
+            findAllSubsetWithMaxOr(nums,j+1,ans,nums[j]|OR,MaxOr);
     }
 }
