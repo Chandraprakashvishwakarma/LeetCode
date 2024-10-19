@@ -5,6 +5,7 @@ class Solution {
             StringBuilder invertedAndReversed = invertAndReverse(new StringBuilder(sb));
             sb.append('1');
             sb.append(invertedAndReversed);
+            if(sb.length()>=k) break;
         }
         
         return sb.charAt(k-1);
